@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# shellcheck disable=2086
+add_sbin_paths() {
+	local IFS=:
+
+	PATH=$(append /sbin $PATH)
+	PATH=$(append /usr/sbin $PATH)
+	PATH=$(append /usr/local/sbin $PATH)
+
+	export PATH
+}
+
+add_paths() {
+  local IFS=:
+
+  PATH=$(append $HOME/bin:$HOME/kopt/bin:$HOME/kopt/work/bin:$HOME/google-cloud-sdk/bin $PATH)
+  GOPATH=$HOME/sandbox/go-code
+  PATH=$(append $GOPATH/bin $PATH)
+
+  export PATH
+}
+
+add_sbin_paths
+add_paths

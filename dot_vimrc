@@ -1,0 +1,171 @@
+" plugins {{{
+call plug#begin('~/.local/share/nvim/plugged')
+Plug 'tpope/vim-sensible'
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'rust-lang/rust.vim'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-eunuch'
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+call plug#end()
+" }}}
+
+" netrw {{{
+let g:netrw_liststyle = 3
+let g:netrw_banner = 1
+" }}}
+
+" ------ settings ------
+let mapleader = " "
+set number
+set numberwidth=2
+set cpoptions+=n
+set hlsearch
+set clipboard=unnamed
+set lazyredraw
+set nolist
+set wrap
+set linebreak
+set cursorline
+set ruler
+set mouse=a
+set autoindent
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set spell spelllang=en_us
+set ignorecase
+set smartcase
+set incsearch
+set backspace=indent,eol,start
+
+" ------ mapps ------
+" Easy write / quit.
+nnoremap <leader>w :w<enter>
+nnoremap <leader>q :q<enter>
+
+" vimscript editing convenience {{{
+nnoremap <leader>\ :vsplit $MYVIMRC<cr>
+inoremap <leader>\ <esc>:vsplit $MYVIMRC<cr>
+nnoremap <leader>- :split $MYVIMRC<cr>
+inoremap <leader>- <esc>:split $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" functions {{{
+function! _Dir()
+    execute 'vsplit' expand('%:p:h')
+endfunction
+
+command! Dir call _Dir()
+
+" Quickly call Dir function.
+nnoremap <leader>u :Dir<enter>
+" }}}
+
+" bazel auto format {{{
+autocmd BufWritePost *.star,*.bzl,*.bazel execute "! /Users/ashour/go-code/bin/buildifier " . shellescape(expand('%p')) . " || read"  | redraw!
+autocmd BufWritePost *.star,*.bzl,*.bazel edit | redraw
+" }}}
+
+
+" fun short cuts {{{
+nnoremap <leader>ss :set spell<cr>
+inoremap <leader>ss <esc>:set spell<cr>
+nnoremap <leader>ns :set nospell<cr>
+inoremap <leader>ns <esc>:set nospell<cr>
+" }}}
+
+" Use gq to format Go comments to 80 chars.
+au BufRead,BufNewFile *.go setlocal textwidth=80
+
+" rust vim {{{
+let g:rustfmt_autosave = 1 
+autocmd FileType rust nnoremap <leader>ts :RustTest<cr>
+" }}}
+
+" airline settings {{{
+let g:airline_theme='deus'
+" }}}
+
+" ctrlp {{{
+let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+let g:ctrlp_use_caching = 1
+let g:ctrlp_working_path_mode = 0
+" }}}
+
+" Reload files.
+au BufEnter * :checktime
+au InsertEnter * :checktime
+au CursorHold * :checktime
+
+" markdown editing {{{
+" Use gq to format Markdown to 100 chars.
+au BufRead,BufNewFile *.md setlocal textwidth=100
+" }}}
+
+" ------ nerdtree ------ "
+set rtp+=~/.vim/plugged/nerdtree
+let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeShowHidden = 1
+" Tree explorer.
+nnoremap <leader>t :NERDTreeFocus <enter>
+map <leader>r :NERDTreeFind %<cr>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+nnoremap <C-n> :call g:NERDTreeCustomToggle()<CR>
+
+au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let NERDTreeWinSize = 30
+let NERDTreeShowHidden = 1
+let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeChDirMode = 0
+let NERDTreeIgnore = ['\.git$[[dir]]', '\.pyc$']
+
+function! g:NERDTreeCustomToggle()
+	let g:curnerdtreetogglewnum = winnr()
+	if g:NERDTree.IsOpen()
+		exec "NERDTreeClose"
+		if &modifiable && @% != "" && !isdirectory(@%)
+		  exec g:curnerdtreetogglewnum . "wincmd ="
+		endif
+	elseif &modifiable && @% != "" && !isdirectory(@%)
+		exec "NERDTreeFind"
+		exec "set winfixwidth"
+		exec g:curnerdtreetogglewnum . "wincmd ="
+	    else
+		    exec "NERDTreeCWD"
+		    exec "set winfixwidth"
+		    exec g:curnerdtreetogglewnum . "wincmd ="
+	    endif
+    endif
+endfunction
+
+let g:NERDTreeMouseMode=3
+
+" ctrlp
+" let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
+" sync open file with NERDTree
+" " Check if NERDTree is open or active
+function! IsNERDTreeOpen()
+  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+endfunction
+
+" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
+" file, and we're not in vimdiff
+function! SyncTree()
+  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+    NERDTreeFind
+    wincmd p
+  endif
+endfunction
+
+" Highlight currently open buffer in NERDTree
+autocmd BufEnter * call SyncTree()

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if command -v exa &>/dev/null; then
+	alias ls=exa
+	alias tree='exa --tree'
+fi
+
+alias l="ls"
+alias ll="ls -l"
+alias la="ls -a"
+alias lla="ls -la"
+
+if [ "$EDITOR" = "nvim" ]; then
+	alias vi=nvim
+	alias vim=nvim
+	alias vimdiff='nvim -d'
+fi
+
+alias g=git
+
+alias bbt='f(){ echo --- RUN bazel build ... ---; bazel build ...; echo --- RUN bazel test "..." ---; bazel test "..."; }; f'
+alias gbt='f(){ echo --- RUN gazelle ---; gazelle; bbt; }; f'
+alias gpr='f(){ echo --- RUN git checkout "$@" ---; git checkout "$@"; echo --- RUN git pull ---; git pull; echo --- RUN git pull origin "$@" ---; git pull origin "$@"; echo --- RUN git rebase origin/"$@" ---; git rebase origin/"$@"; echo --- RUN arc cascade ---; arc cascade; }; f'
+alias ta='f(){echo --- RUN tmux a -t "$@" ---; tmux a -t "$@"; }; f'
+alias tn='f(){echo --- RUN tmux new -s "$@" ---; tmux new -s "$@"; }; f'
+alias gclean='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'
+alias gotestc='f(){echo --- RUN go test -coverprofile=coverage.out ---; go test -coverprofile=coverage.out; echo --- RUN go tool cover -html=coverage.out ---; go tool cover -html=coverage.out; }; f'

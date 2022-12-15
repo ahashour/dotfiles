@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ -d "$HOME/.cargo" ]; then
+	# shellcheck disable=2086
+	PATH=$(IFS=:; prepend "$HOME/.cargo/bin" $PATH)
+fi
+export PATH

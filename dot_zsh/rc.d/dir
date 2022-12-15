@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+setopt autocd       # Executing a directory cds into it
+setopt autopushd    # pushd instead of cd
+setopt pushd_ignoredups
+                    # No duplicate entries in pushd

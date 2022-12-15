@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# shellcheck disable=2086
+add_haskell_paths() {
+	# Don't complain if glob expansion doesn't result in anything
+	local IFS=:
+	local STACK_RESOLVER=lts-14.7
+	local GHC_VERSION=8.6.5
+
+	if [ -d "$HOME/.cabal/bin" ]; then
+		PATH=$(prepend "$HOME/.cabal/bin" $PATH)
+	fi
+
+	local snapshot="$HOME/.stack/snapshots/x86_64-osx/$STACK_RESOLVER/$GHC_VERSION/bin"
+	if [ -d "$snapshot" ]; then
+		PATH=$(prepend "$snapshot" $PATH)
+	fi
+
+	local ghc="$HOME/.stack/programs/x86_64-osx/ghc-$GHC_VERSION/bin"
+	if [ -d "$ghc" ]; then
+		PATH=$(prepend "$ghc" $PATH)
+	fi
+
+	export PATH
+}
+
+
+add_haskell_paths

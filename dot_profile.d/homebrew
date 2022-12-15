@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# export HOMEBREW_VERBOSE=1
+export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_AUTO_UPDATE_SECS=86400
+export HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK=1
+export HOMEBREW_CURL_RETRIES=3
+
+setup-homebrew() {
+	export HOMEBREW_PREFIX
+
+	# Check for updates once a week.
+	export HOMEBREW_AUTO_UPDATE_SECS=604800
+
+	# shellcheck disable=2086
+	PATH=$(IFS=:; prepend "$HOMEBREW_PREFIX/sbin" $PATH)
+	# shellcheck disable=2086
+	PATH=$(IFS=:; prepend "$HOMEBREW_PREFIX/bin" $PATH)
+	export PATH
+
+	# shellcheck disable=2086
+	MANPATH=$(IFS=:; prepend "$HOMEBREW_PREFIX/share/man" $MANPATH)
+	export MANPATH
+
+	# shellcheck disable=2086
+	INFOPATH=$(IFS=:; prepend "$HOMEBREW_PREFIX/share/info" $INFOPATH)
+	export INFOPATH
+}
+
+if [[ -x /opt/homebrew/bin/brew ]]; then
+    HOMEBREW_PREFIX="$(/opt/homebrew/bin/brew --prefix)"
+fi
+if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+    HOMEBREW_PREFIX="$(/home/linuxbrew/.linuxbrew/bin/brew --prefix)"
+fi
+if [[ -n "$HOMEBREW_PREFIX" ]]; then
+	setup-homebrew
+fi

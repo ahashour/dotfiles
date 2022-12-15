@@ -1,0 +1,35 @@
+PROMPT='%D{%F %T %Z} %1d@%M # '
+
+
+
+autoload -Uz compinit && compinit
+bindkey -e
+
+# Make sure that .profile has been loaded, even if there was no "login shell"
+# in our lineage.
+if [ -z "$_PROFILE_LOADED" ]; then
+    source ~/.profile
+else
+    # Always want arrayutil
+    source ~/.profile.d/arrayutil
+fi
+
+source ~/.zsh/rc.d/options
+source ~/.zsh/rc.d/prompt
+source ~/.zsh/rc.d/history
+source ~/.zsh/rc.d/editor
+source ~/.zsh/rc.d/dir
+source ~/.zsh/rc.d/direnv
+source ~/.zsh/rc.d/fzf
+source ~/.zsh/rc.d/homebrew
+source ~/.zsh/rc.d/completion
+source ~/.zsh/rc.d/highlighting
+source ~/.zsh/rc.d/autosuggestions
+source ~/.zsh/rc.d/netlify
+
+source ~/.aliases
+
+if [[ -f "$HOME/.zsh/rc.d/local" ]]; then
+    source "$HOME/.zsh/rc.d/local"
+fi
+

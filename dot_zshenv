@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+
+[ -r $HOME/kopt/work/config/zshenv.inc ] && . $HOME/kopt/work/config/zshenv.inc
+[ -r  "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# Comments next to commands
+setopt INTERACTIVECOMMENTS
+
+# Enable bash-like expansion for things like arrayutil.
+setopt SH_WORD_SPLIT
