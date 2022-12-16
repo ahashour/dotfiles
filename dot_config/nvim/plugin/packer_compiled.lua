@@ -134,6 +134,11 @@ _G.packer_plugins = {
     path = "/Users/ashour/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
+  ["papercolor-theme"] = {
+    loaded = true,
+    path = "/Users/ashour/.local/share/nvim/site/pack/packer/start/papercolor-theme",
+    url = "https://github.com/NLKNguyen/papercolor-theme"
+  },
   ["plenary.nvim"] = {
     loaded = true,
     path = "/Users/ashour/.local/share/nvim/site/pack/packer/start/plenary.nvim",
@@ -168,6 +173,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/ashour/.local/share/nvim/site/pack/packer/start/vim-go",
     url = "https://github.com/fatih/vim-go"
+  },
+  ["vim-monokai"] = {
+    loaded = true,
+    path = "/Users/ashour/.local/share/nvim/site/pack/packer/start/vim-monokai",
+    url = "https://github.com/crusoexia/vim-monokai"
   },
   ["vim-oscyank"] = {
     loaded = true,

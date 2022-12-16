@@ -21,3 +21,11 @@
     enabled = true
 [log]
     decorate = true
+[user]
+	email = ashour.membership@outlook.com
+	name = Ahmed Ashour
+[credential]
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true

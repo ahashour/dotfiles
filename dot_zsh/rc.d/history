@@ -13,3 +13,15 @@ setopt HIST_FIND_NO_DUPS      # Don't display previously found event
 setopt HIST_IGNORE_SPACE      # Don't record events starting with a space
 setopt HIST_SAVE_NO_DUPS      # Don't write duplicate event to file
 setopt HIST_VERIFY            # Don't execute immediately upon expansion
+
+source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+bindkey '\eOA' history-substring-search-up
+bindkey '\eOA' history-substring-search-down
+

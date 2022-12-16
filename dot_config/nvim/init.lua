@@ -29,6 +29,7 @@ require("config.wildignore")
 require('lualine').setup()
 require('go').setup()
 require('nerdtree').setup()
+require('commentary').setup()
 
 -- Neovide settings
 if vim.g.neovide
@@ -75,7 +76,7 @@ kt_map("<c-\\><c-k>","<c-\\><c-n><c-w>k")
 kt_map("<c-\\><c-l>","<c-\\><c-n><c-w>l")
 
 kn_l_map("ot", function()
-  vim.api.nvim_command("vsplit | term")
+  vim.api.nvim_command("split | term")
 end)
 
 -- vim config editing convenience
@@ -140,11 +141,10 @@ personal_group:add_cmd("BufWritePre", {
 local lsp_on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  local opts = { noremap=true, silent=true, buffer=bufnr}
-  kn_map('gd', vim.lsp.buf.definition, opts)
-  kn_map('K', vim.lsp.buf.hover, opts)
-  kn_map('grr', vim.lsp.buf.rename, opts)
-  kn_map('grf', vim.lsp.buf.references, opts)
+  kn_map('gd', vim.lsp.buf.definition)
+  kn_map('K', vim.lsp.buf.hover)
+  kn_map('grr', vim.lsp.buf.rename)
+  kn_map('grf', vim.lsp.buf.references)
 end
 
 local lsp_flags = {

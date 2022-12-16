@@ -33,3 +33,4 @@ vim.cmd("set wrap linebreak nolist")
 vim.opt.wrap=true
 vim.opt.linebreak=true
 vim.opt.cursorline=true
+vim.opt.relativenumber=false

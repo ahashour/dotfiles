@@ -40,11 +40,13 @@ return require('packer').startup(function(use)
     'fatih/vim-go', 
     run = ':GoUpdateBinaries' 
   }
+  use 'NLKNguyen/papercolor-theme'
+  use 'crusoexia/vim-monokai'
 
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
-  if packer_bootstrap then
+  -- if packer_bootstrap then
     require('packer').sync()
-  end
+  -- end
 end)
