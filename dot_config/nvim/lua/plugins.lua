@@ -42,7 +42,10 @@ return require('packer').startup(function(use)
   }
   use 'NLKNguyen/papercolor-theme'
   use 'crusoexia/vim-monokai'
-
+  use { 
+    'sindrets/diffview.nvim',
+    requires = 'nvim-lua/plenary.nvim'
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
