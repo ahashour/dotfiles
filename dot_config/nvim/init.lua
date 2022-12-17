@@ -75,6 +75,13 @@ kt_map("<c-\\><c-j>","<c-\\><c-n><c-w>j")
 kt_map("<c-\\><c-k>","<c-\\><c-n><c-w>k")
 kt_map("<c-\\><c-l>","<c-\\><c-n><c-w>l")
 
+kt_map("<A-j>", ":m .+1<CR>==")
+kt_map("<A-k>", ":m .-2<CR>==")
+kt_map("<A-j>", "<Esc>:m .+1<CR>==gi")
+kt_map("<A-k>", "<Esc>:m .-2<CR>==gi")
+kt_map("<A-j>", ":m '>+1<CR>gv=gv")
+kt_map("<A-k>", ":m '<-2<CR>gv=gv")
+
 kn_l_map("ot", function()
   vim.api.nvim_command("split | term")
 end)

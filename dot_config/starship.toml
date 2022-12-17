@@ -1,0 +1,21 @@
+# ~/.config/starship.toml
+
+[username]
+# style_user = '#d0b000 bold'
+# style_root = 'black bold'
+format = '[\[](bold)[$ssh_symbol$user](bold #d0b000)'
+disabled = false
+show_always = true
+
+[hostname]
+ssh_only = false
+format = '@[$hostname](bold #00c0c0) '
+disabled = false
+
+[directory]
+truncation_length = 3
+truncation_symbol = '…/'
+format = '[$path]($style)[$read_only]($read_only_style)[\]](bold) '
+
+[cmd_duration]
+format = '[\($duration\)](bold yellow)'
