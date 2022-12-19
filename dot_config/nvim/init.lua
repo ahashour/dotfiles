@@ -257,7 +257,7 @@ kn_l_map('tf', function() tele.find_files() end)
 kn_l_map('th', function() tele.help_tags() end)
 kn_l_map('tg', function() tele.live_grep() end)
 kn_l_map('tb', function() tele.git_branches() end)
-kn_l_map('tp', function() tele.resume() end)
+kn_l_map('tr', function() tele.resume() end)
 
 -- OSCYank
 if not vim.g.neovide
