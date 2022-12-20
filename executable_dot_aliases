@@ -23,5 +23,9 @@ alias gbt='f(){ echo --- RUN gazelle ---; gazelle; bbt; }; f'
 alias gpr='f(){ echo --- RUN git checkout "$@" ---; git checkout "$@"; echo --- RUN git pull ---; git pull; echo --- RUN git pull origin "$@" ---; git pull origin "$@"; echo --- RUN git rebase origin/"$@" ---; git rebase origin/"$@"; echo --- RUN arc cascade ---; arc cascade; }; f'
 alias ta='f(){echo --- RUN tmux a -t "$@" ---; tmux a -t "$@"; }; f'
 alias tn='f(){echo --- RUN tmux new -s "$@" ---; tmux new -s "$@"; }; f'
-alias gclean='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'
 alias gotestc='f(){echo --- RUN go test -coverprofile=coverage.out ---; go test -coverprofile=coverage.out; echo --- RUN go tool cover -html=coverage.out ---; go tool cover -html=coverage.out; }; f'
+
+alias gclean='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'
+alias gs="git status -s"
+alias gl="git log --oneline"
+alias glp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit'
