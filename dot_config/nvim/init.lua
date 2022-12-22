@@ -202,9 +202,9 @@ local neovim_lua_lsp_settings = {
 }
 
 local language_servers = {
-  gopls = {
-    cmd = {'gopls', '-remote=auto'},
-  },
+  -- gopls = {
+  --   cmd = {'gopls', '-remote=auto'},
+  -- },
   sumneko_lua = {
     settings = neovim_lua_lsp_settings,
   },
