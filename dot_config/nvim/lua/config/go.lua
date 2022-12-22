@@ -1,4 +1,5 @@
--- vim.g.go_def_mode = 'gopls'
+vim.g.go_def_mode = 'gopls'
+vim.g.go_info_mode = 'gopls'
 -- Speed up saves.
 vim.g.go_mod_fmt_autosave = 0
 vim.g.go_fmt_autosave = 0
@@ -15,7 +16,7 @@ vim.g.go_highlight_types = 0
 vim.g.go_highlight_diagnostic_warnings = 0
 vim.g.go_highlight_diagnostic_errors = 0
 vim.g.go_highlight_variable_assignments = 0
--- vim.g.go_fmt_command = "goimports"
--- vim.g.go_fmt_options = {
---     goimports = '-local selector,inventory,gopkg.in,google.golang.org,code.uber.internal,thriftrw,thrift,gogoproto,go.uber.org,golang.org,github.com,mock',
--- }
+vim.g.go_fmt_command = "goimports"
+vim.g.go_fmt_options = {
+    goimports = '-local selector,inventory,gopkg.in,google.golang.org,code.uber.internal,thriftrw,thrift,gogoproto,go.uber.org,golang.org,github.com,mock',
+}
