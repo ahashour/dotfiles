@@ -15,6 +15,8 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'scrooloose/nerdtree'
   use 'ojroques/vim-oscyank'
+  use 'williamboman/nvim-lsp-installer'
+  use 'neovim/nvim-lspconfig'
   use 'neovim/nvim-lspconfig'
   use 'tpope/vim-commentary'
   use 'tpope/vim-fugitive'
@@ -53,5 +55,15 @@ return require('packer').startup(function(use)
   -- Put this at the end after all plugins
   if packer_bootstrap then
     require('packer').sync()
+    require("nvim-lsp-installer").setup({
+      automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+      ui = {
+          icons = {
+              server_installed = "✓",
+              server_pending = "➜",
+              server_uninstalled = "✗"
+          }
+      }
+  })
   end
 end)
