@@ -137,20 +137,20 @@ kn_l_map("w", ":w<cr>")
 kn_l_map("q", ":q<cr>")
 
 -- lsp settings
-local function autofmt()
-    vim.lsp.buf.formatting_sync(nil, 3000)
-end
-personal_group:add_cmd("BufWritePre", {
-  pattern = {'*.go', '.*lua'},
-  callback = autofmt,
-})
+-- local function autofmt()
+--     vim.lsp.buf.formatting_sync(nil, 3000)
+-- end
+-- personal_group:add_cmd("BufWritePre", {
+--   pattern = {'*.go', '.*lua'},
+--   callback = autofmt,
+-- })
 
-personal_group:add_cmd("BufWritePre", {
-  pattern = {'*.go'},
-  callback = function()
-    require("go").go_org_imports(3500)
-  end,
-})
+-- personal_group:add_cmd("BufWritePre", {
+--   pattern = {'*.go'},
+--   callback = function()
+--     require("go").go_org_imports(3500)
+--   end,
+-- })
 
 local lsp_on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')

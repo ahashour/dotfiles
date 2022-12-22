@@ -1,4 +1,4 @@
-vim.g.go_def_mode = 'gopls'
+-- vim.g.go_def_mode = 'gopls'
 -- Speed up saves.
 vim.g.go_mod_fmt_autosave = 0
 vim.g.go_fmt_autosave = 0
