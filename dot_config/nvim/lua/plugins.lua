@@ -37,10 +37,10 @@ return require('packer').startup(function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'nvim-tree/nvim-web-devicons'}
   }
-  use { 
-    'fatih/vim-go', 
-    run = ':GoUpdateBinaries' 
-  }
+  -- use { 
+  --   'fatih/vim-go', 
+  --   run = ':GoUpdateBinaries' 
+  -- }
   use 'NLKNguyen/papercolor-theme'
   use 'crusoexia/vim-monokai'
   -- diff 
