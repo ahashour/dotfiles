@@ -53,7 +53,7 @@ return require('packer').startup(function(use)
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
-  if packer_bootstrap then
+  -- if packer_bootstrap then
     require('packer').sync()
     require("nvim-lsp-installer").setup({
       automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
@@ -65,5 +65,5 @@ return require('packer').startup(function(use)
           }
       }
   })
-  end
+  -- end
 end)
