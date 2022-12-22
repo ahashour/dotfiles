@@ -147,7 +147,7 @@ personal_group:add_cmd("BufWritePre", {
 
 personal_group:add_cmd("BufWritePre", {
   pattern = {'*.go'},
-  callback = require("go").go_org_imports(),
+  callback = require("go").go_org_imports(3500),
 })
 
 local lsp_on_attach = function(_, bufnr)
