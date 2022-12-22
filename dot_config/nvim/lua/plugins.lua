@@ -17,7 +17,6 @@ return require('packer').startup(function(use)
   use 'ojroques/vim-oscyank'
   use 'williamboman/nvim-lsp-installer'
   use 'neovim/nvim-lspconfig'
-  use 'neovim/nvim-lspconfig'
   use 'tpope/vim-commentary'
   use 'tpope/vim-fugitive'
   use 'tpope/vim-surround'
