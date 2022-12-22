@@ -216,6 +216,18 @@ for lsp_name, opts in pairs(language_servers) do
   require('lspconfig')[lsp_name].setup(all_opts)
 end
 
+require("nvim-lsp-installer").setup({
+  automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+  ui = {
+    icons = {
+      server_installed = "✓",
+      server_pending = "➜",
+      server_uninstalled = "✗"
+    }
+  }
+})
+
+
 -- Fugitive (git) customizations
 kn_l_map('ggu', function()
   vim.api.nvim_command("Git add --update")
