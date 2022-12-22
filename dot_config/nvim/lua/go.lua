@@ -18,7 +18,7 @@ function M.setup()
 	})
 end
 
-function M.function go_org_imports(wait_ms)
+function M.go_org_imports(wait_ms)
   local params = vim.lsp.util.make_range_params()
   params.context = {only = {"source.organizeImports"}}
   local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
