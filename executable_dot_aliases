@@ -28,4 +28,4 @@ alias gotestc='f(){echo --- RUN go test -coverprofile=coverage.out ---; go test 
 alias gclean='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'
 alias gs="git status -s"
 alias gl="git log --oneline"
-alias glp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit'
+alias glp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit'"
