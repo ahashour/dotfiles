@@ -29,3 +29,4 @@ alias gclean='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git bran
 alias gs="git status -s"
 alias gl="git log --oneline"
 alias glp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit'"
+alias flaky='f(){ echo --- RUN flaky test ---; bazel test --runs_per_test=300 --cache_test_results=no --test_env=GO_TEST_WRAP_TESTV=1 --@io_bazel_rules_go//go/config:race ...; }; f'
