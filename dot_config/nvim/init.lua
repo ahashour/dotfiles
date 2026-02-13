@@ -205,7 +205,7 @@ local language_servers = {
   gopls = {
     cmd = {'gopls', '-remote=auto'},
   },
-  sumneko_lua = {
+  lua_ls = {  -- was sumneko_lua (deprecated in lspconfig)
     settings = neovim_lua_lsp_settings,
   },
   pylsp = {},
