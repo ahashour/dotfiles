@@ -21,6 +21,8 @@ packages:
       - rust
       - minikube
       - starship
+      - vim
+      - nvim
     # GUI apps (brew install --cask <name>)
     casks:
       - iterm2
