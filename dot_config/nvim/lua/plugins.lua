@@ -11,11 +11,16 @@ end
 
 local packer_bootstrap = ensure_packer()
 
+-- Neovim 0.11+ uses vim.lsp.config; nvim-lsp-installer is only for older Nvim
+local use_lsp_installer = not (vim.lsp and vim.lsp.config and vim.lsp.enable)
+
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'scrooloose/nerdtree'
   use 'ojroques/vim-oscyank'
-  use 'williamboman/nvim-lsp-installer'
+  if use_lsp_installer then
+    use 'williamboman/nvim-lsp-installer'
+  end
   use 'neovim/nvim-lspconfig'
   use 'tpope/vim-commentary'
   use 'tpope/vim-fugitive'

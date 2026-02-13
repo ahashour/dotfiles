@@ -1,6 +1,11 @@
 -- Switch to utilizing special nvim path if it exists
 vim.env.PATH = vim.env.NVIM_PATH or vim.env.PATH
 
+-- Disable built-in providers not used (removes checkhealth errors if not installed)
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_ruby_provider = 0
+
 -- plugins
 require("plugins")
 
@@ -205,27 +210,31 @@ local language_servers = {
   gopls = {
     cmd = {'gopls', '-remote=auto'},
   },
-  lua_ls = {  -- was sumneko_lua (deprecated in lspconfig)
+  lua_ls = {
     settings = neovim_lua_lsp_settings,
   },
   pylsp = {},
 }
 
-for lsp_name, opts in pairs(language_servers) do
-  local all_opts = ext_opts(standard_lsp_config, opts)
-  require('lspconfig')[lsp_name].setup(all_opts)
+-- Use Neovim 0.11+ vim.lsp.config API (no deprecation); fallback to lspconfig for older Nvim
+if vim.lsp and vim.lsp.config and vim.lsp.enable then
+  for lsp_name, opts in pairs(language_servers) do
+    local all_opts = ext_opts(standard_lsp_config, opts)
+    vim.lsp.config(lsp_name, all_opts)
+    vim.lsp.enable(lsp_name)
+  end
+else
+  for lsp_name, opts in pairs(language_servers) do
+    local all_opts = ext_opts(standard_lsp_config, opts)
+    require('lspconfig')[lsp_name].setup(all_opts)
+  end
+  pcall(function()
+    require("nvim-lsp-installer").setup({
+      automatic_installation = true,
+      ui = { icons = { server_installed = "✓", server_pending = "➜", server_uninstalled = "✗" } }
+    })
+  end)
 end
-
-require("nvim-lsp-installer").setup({
-  automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
-  ui = {
-    icons = {
-      server_installed = "✓",
-      server_pending = "➜",
-      server_uninstalled = "✗"
-    }
-  }
-})
 
 
 -- Fugitive (git) customizations
