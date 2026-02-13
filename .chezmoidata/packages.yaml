@@ -3,6 +3,9 @@
 # See: https://www.chezmoi.io/user-guide/advanced/install-packages-declaratively/
 packages:
   darwin:
+    # Taps to add before installing formulae (e.g. bun requires oven-sh/bun)
+    taps:
+      - oven-sh/bun
     brews:
       - git
       - grep

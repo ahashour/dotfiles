@@ -8,6 +8,9 @@ elif [[ -x /usr/local/bin/brew ]]; then
   export PATH="/usr/local/bin:${PATH}"
 fi
 brew bundle --file=/dev/stdin <<'BUNDLE_EOF'
+{{ range .packages.darwin.taps -}}
+tap "{{ . }}"
+{{ end -}}
 {{ range .packages.darwin.brews -}}
 brew "{{ . }}"
 {{ end -}}
