@@ -16,9 +16,9 @@ cask "{{ . }}"
 {{ end -}}
 BUNDLE_EOF
 {{ if .packages.darwin.brews -}}
-brew upgrade {{ join .packages.darwin.brews " " }}
+brew upgrade {{ join " " .packages.darwin.brews }}
 {{ end -}}
 {{ if .packages.darwin.casks -}}
-brew upgrade --cask {{ join .packages.darwin.casks " " }}
+brew upgrade --cask {{ join " " .packages.darwin.casks }}
 {{ end -}}
 {{ end -}}
