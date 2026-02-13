@@ -7,6 +7,10 @@ if [[ -x /opt/homebrew/bin/brew ]]; then
 elif [[ -x /usr/local/bin/brew ]]; then
   export PATH="/usr/local/bin:${PATH}"
 fi
+# Add taps first so formulae from them (e.g. bun) are available to brew bundle
+{{ range .packages.darwin.taps -}}
+brew tap "{{ . }}"
+{{ end -}}
 brew bundle --file=/dev/stdin <<'BUNDLE_EOF'
 {{ range .packages.darwin.taps -}}
 tap "{{ . }}"
