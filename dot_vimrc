@@ -80,7 +80,7 @@ nnoremap <leader>u :Dir<enter>
 " }}}
 
 " bazel auto format {{{
-autocmd BufWritePost *.star,*.bzl,*.bazel execute "! /Users/ashour/go-code/bin/buildifier " . shellescape(expand('%p')) . " || read"  | redraw!
+autocmd BufWritePost *.star,*.bzl,*.bazel execute "! buildifier " . shellescape(expand('%p')) . " || read"  | redraw!
 autocmd BufWritePost *.star,*.bzl,*.bazel edit | redraw
 " }}}
 

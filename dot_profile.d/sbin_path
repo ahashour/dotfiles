@@ -14,9 +14,8 @@ add_sbin_paths() {
 add_paths() {
   local IFS=:
 
-  PATH=$(append $HOME/bin:$HOME/kopt/bin:$HOME/kopt/work/bin:$HOME/google-cloud-sdk/bin $PATH)
-  GOPATH=$HOME/sandbox/go-code
-  PATH=$(append $GOPATH/bin $PATH)
+  # Optional: add to PATH only if present (e.g. Google Cloud SDK, custom work dirs)
+  [ -d "$HOME/google-cloud-sdk/bin" ] && PATH=$(append "$HOME/google-cloud-sdk/bin" $PATH)
 
   export PATH
 }

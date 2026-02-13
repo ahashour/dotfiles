@@ -1,7 +1,3 @@
-PROMPT='%D{%F %T %Z} %1d@%M # '
-
-
-
 autoload -Uz compinit && compinit
 bindkey -e
 

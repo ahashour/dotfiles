@@ -1,0 +1,27 @@
+# Declarative list of Homebrew packages for macOS.
+# Used by run_onchange_darwin-install-packages.sh.tmpl (install + upgrade on apply).
+# See: https://www.chezmoi.io/user-guide/advanced/install-packages-declaratively/
+packages:
+  darwin:
+    brews:
+      - git
+      - grep
+      - ripgrep
+      - fzf
+      - tmux
+      - chezmoi
+      - go
+      - node
+      - npm
+      - yarn
+      - bun
+      - pnpm
+      - python
+      - cookiecutter
+      - rust
+      - minikube
+      - starship
+    # GUI apps (brew install --cask <name>)
+    casks:
+      - iterm2
+      - visual-studio-code

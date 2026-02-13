@@ -1,0 +1,24 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+set -e
+# Install missing packages and upgrade already-installed ones (declarative list in .chezmoidata/packages.yaml)
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  export PATH="/opt/homebrew/bin:${PATH}"
+elif [[ -x /usr/local/bin/brew ]]; then
+  export PATH="/usr/local/bin:${PATH}"
+fi
+brew bundle --file=/dev/stdin <<'BUNDLE_EOF'
+{{ range .packages.darwin.brews -}}
+brew "{{ . }}"
+{{ end -}}
+{{ range .packages.darwin.casks -}}
+cask "{{ . }}"
+{{ end -}}
+BUNDLE_EOF
+{{ if .packages.darwin.brews -}}
+brew upgrade {{ join .packages.darwin.brews " " }}
+{{ end -}}
+{{ if .packages.darwin.casks -}}
+brew upgrade --cask {{ join .packages.darwin.casks " " }}
+{{ end -}}
+{{ end -}}

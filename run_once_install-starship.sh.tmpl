@@ -1,0 +1,9 @@
+{{ if ne .chezmoi.os "darwin" -}}
+#!/bin/sh
+# Install Starship prompt when not on macOS (macOS uses Homebrew from packages.yaml).
+# See https://starship.rs/guide/
+set -e
+if command -v starship >/dev/null 2>&1; then exit 0; fi
+echo "Installing Starship prompt..." >&2
+curl -sS https://starship.rs/install.sh | sh -s -- -y
+{{ end -}}

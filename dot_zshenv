@@ -1,8 +1,9 @@
 #!/bin/zsh
 
 
-[ -r $HOME/kopt/work/config/zshenv.inc ] && . $HOME/kopt/work/config/zshenv.inc
-[ -r  "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+# Machine-specific env (create locally; not in dotfiles)
+[ -r "$HOME/.zshenv.local" ] && . "$HOME/.zshenv.local"
+[ -r "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # Comments next to commands
 setopt INTERACTIVECOMMENTS

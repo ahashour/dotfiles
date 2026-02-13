@@ -32,4 +32,4 @@ alias devpod_port_forward='f(){ ssh -N -L "$1":localhost:"$1" "$DEVPOD"; }; f'
 alias port_forward='f(){ ssh -N -L "$1":localhost:"$1" "$2"; }; f'
 alias glp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit'"
 alias flaky='f(){ echo --- RUN flaky test ---; bazel test --runs_per_test=300 --cache_test_results=no --test_env=GO_TEST_WRAP_TESTV=1 --@io_bazel_rules_go//go/config:race ...; }; f'
-alias bad="hostissue bad-host'
+alias bad="hostissue bad-host"
