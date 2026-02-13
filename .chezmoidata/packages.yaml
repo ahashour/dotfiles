@@ -3,6 +3,7 @@
 # See: https://www.chezmoi.io/user-guide/advanced/install-packages-declaratively/
 packages:
   darwin:
+    taps: []  # e.g. oven-sh/bun if you add bun back
     brews:
       - git
       - grep
