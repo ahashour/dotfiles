@@ -20,9 +20,19 @@ chezmoi init --apply <this-repo-url>
 
 - **Shell:** bash and zsh config, shared `~/.profile` and `~/.profile.d/` (PATH, editor, languages, etc.)
 - **Homebrew (macOS):** Declarative list in `.chezmoidata/packages.yaml`; `chezmoi apply` installs/upgrades those packages
-- **Neovim / Vim:** Config and plugins (Packer). Run `:PackerSync` in Neovim after first apply
+- **Neovim:** Config and plugins (Packer)
+- **Vim:** Config and plugins (vim-plug; installed automatically on first apply)
 - **Git:** Aliases and defaults (no `user.name`/`user.email` — set those locally)
 - **tmux, fzf, ripgrep, direnv, starship:** Config as present in the repo
+
+## Manual steps after first apply
+
+Do these once after `chezmoi apply` (or `install.sh`) on a new machine:
+
+| Step | Command | Why |
+|------|---------|-----|
+| **Neovim plugins** | Open `nvim`, then run `:PackerSync` | Packer generates config and installs plugins; not applied from the repo. |
+| **Vim plugins** | Open `vim`, then run `:PlugInstall` | vim-plug is installed by a run_once script; plugins are installed on first `:PlugInstall`. |
 
 ## Optional one-time setup
 
@@ -42,7 +52,7 @@ chezmoi init --apply <this-repo-url>
 
 - **Bazel / arc:** Some aliases (e.g. `bbt`, `gpr`, `flaky`) assume Bazel and (for `gpr`) `arc`. Safe to ignore if you don’t use them.
 - **Android:** `logcat`, `ss`, `pklist`, `atext` in bash assume `adb`; harmless if `adb` isn’t installed.
-- **Neovim:** `packer_compiled.lua` is not applied from the repo; run `:PackerSync` in Neovim once so Packer generates it for your machine.
+- **Neovim:** See [Manual steps after first apply](#manual-steps-after-first-apply) — run `:PackerSync` once.
 
 ## Updating
 
