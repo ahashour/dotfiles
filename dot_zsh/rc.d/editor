@@ -4,6 +4,7 @@ bindkey -v
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
 bindkey '^K' kill-line
+# Word movement: \eb = Esc+b (back), \ef = Esc+f (forward). Use Option+Arrow, or map Cmd+Arrow in iTerm2 to send Esc+b / Esc+f (see README).
 bindkey '\eb' backward-word
 bindkey '\ef' forward-word
 bindkey '\ed' kill-word

@@ -10,6 +10,7 @@ packages:
       - ripgrep
       - fzf
       - tmux
+      - tree
       - chezmoi
       - go
       - node

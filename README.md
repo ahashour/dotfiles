@@ -123,6 +123,23 @@ Do these **once** after `chezmoi apply` (or `install.sh`) on a new machine:
 
 ---
 
+## Terminal (iTerm2): word movement with Cmd+Arrow
+
+By default, **Cmd+Left** / **Cmd+Right** don’t move by word in the shell because iTerm2 doesn’t send the sequences zsh expects. The shell is already set up for **Esc+b** (back one word) and **Esc+f** (forward one word); you only need to map keys in iTerm2:
+
+1. **iTerm2 → Settings (⌘,) → Profiles → Keys.**
+2. Under **Key Mappings**, click **+** to add:
+   - **Keyboard shortcut:** `⌘←` (Cmd+Left)  
+     **Action:** “Send Escape Sequence”  
+     **Esc+:** `b`
+   - **Keyboard shortcut:** `⌘→` (Cmd+Right)  
+     **Action:** “Send Escape Sequence”  
+     **Esc+:** `f`
+
+Then **Option+Left** / **Option+Right** (if already bound) and **Cmd+Left** / **Cmd+Right** (with the mapping above) will move by word in zsh.
+
+---
+
 ## Optional one-time setup
 
 - **Git identity:** Set your name and email (not in the repo):
