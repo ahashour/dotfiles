@@ -17,6 +17,14 @@ if [ "$EDITOR" = "nvim" ]; then
 fi
 
 alias g=git
+alias gb='git branch'
+alias gc='git checkout'
+alias gs="git status -s"
+alias gl="git log --oneline"
+alias gaa='git add -A'
+alias gcm='git commit -m'
+alias grh='git reset --hard'
+alias grv='git revert'
 
 alias bbt='f(){ echo --- RUN bazel build ... ---; bazel build ...; echo --- RUN bazel test "..." ---; bazel test "..."; }; f'
 alias gbt='f(){ echo --- RUN gazelle ---; gazelle; bbt; }; f'
@@ -26,8 +34,6 @@ alias tn='f(){echo --- RUN tmux new -s "$@" ---; tmux new -s "$@"; }; f'
 alias gotestc='f(){echo --- RUN go test -coverprofile=coverage.out ---; go test -coverprofile=coverage.out; echo --- RUN go tool cover -html=coverage.out ---; go tool cover -html=coverage.out; }; f'
 
 alias gclean='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'
-alias gs="git status -s"
-alias gl="git log --oneline"
 alias glp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --decorate"
 alias devpod_port_forward='f(){ ssh -N -L "$1":localhost:"$1" "$DEVPOD"; }; f'
 alias port_forward='f(){ ssh -N -L "$1":localhost:"$1" "$2"; }; f'
