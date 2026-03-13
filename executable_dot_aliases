@@ -28,10 +28,38 @@ alias grv='git revert'
 
 alias bbt='f(){ echo --- RUN bazel build ... ---; bazel build ...; echo --- RUN bazel test "..." ---; bazel test "..."; }; f'
 alias gbt='f(){ echo --- RUN gazelle ---; gazelle; bbt; }; f'
-alias gpr='f(){ echo --- RUN git checkout "$@" ---; git checkout "$@"; echo --- RUN git pull ---; git pull; echo --- RUN git pull origin "$@" ---; git pull origin "$@"; echo --- RUN git rebase origin/"$@" ---; git rebase origin/"$@"; echo --- RUN arc cascade ---; arc cascade; }; f'
+alias gpr='f(){ local base="${1:-main}"; local current; current=$(git branch --show-current); git fetch origin; if [ "$current" = "$base" ]; then echo "--- On $base, pulling ---"; git checkout "$base" && git pull origin "$base"; else echo "--- Fetch and update $base ---"; git checkout "$base" && git pull origin "$base"; echo "--- Rebase stack onto $base with --update-refs ---"; git checkout "$current" && git rebase "$base" --update-refs; fi; }; f'
 alias ta='f(){echo --- RUN tmux a -t "$@" ---; tmux a -t "$@"; }; f'
 alias tn='f(){echo --- RUN tmux new -s "$@" ---; tmux new -s "$@"; }; f'
 alias gotestc='f(){echo --- RUN go test -coverprofile=coverage.out ---; go test -coverprofile=coverage.out; echo --- RUN go tool cover -html=coverage.out ---; go tool cover -html=coverage.out; }; f'
+
+# Show branch stack topology: parents (base -> current), current, children (current -> latest)
+gstack() {
+	local base="${1:-main}"
+	git rev-parse -q "$base" >/dev/null 2>&1 || base=master
+	echo "=== Parent chain ($base -> current) ==="
+	git log --first-parent --oneline --decorate "$base"..HEAD 2>/dev/null || echo "  (already at $base)"
+	echo ""
+	echo "=== Current: $(git branch --show-current) ==="
+	echo ""
+	echo "=== Child chain (current -> latest) ==="
+	local cur
+	cur=$(git branch --show-current)
+	local sorted
+	sorted=$(git branch --contains HEAD --format='%(refname:short)' | while read -r b; do
+		[ -z "$b" ] || [ "$b" = "$cur" ] && continue
+		d=$(git rev-list --count HEAD.."$b" 2>/dev/null)
+		[ -z "$d" ] && continue
+		printf "%s %s\n" "$d" "$b"
+	done | sort -n)
+	if [ -z "$sorted" ]; then
+		echo "  (none)"
+	else
+		echo "$sorted" | while read -r _ b; do
+			[ -n "$b" ] && git log -1 --oneline --decorate "$b"
+		done
+	fi
+}
 
 alias gclean='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'
 alias glp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --decorate"
