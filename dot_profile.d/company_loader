@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Optional company-specific ~/.profile.d/company/<name>/ snippets.
+# NVIDIA: loaded when the host FQDN looks corporate (*.nvidia.com) or when
+# you create an empty marker file:
+#   mkdir -p ~/.config/dotfiles/company && touch ~/.config/dotfiles/company/nvidia
+
+_company_profile_root="${HOME}/.profile.d/company"
+
+_should_load_nvidia_company_profile() {
+	local fqdn
+	fqdn=$(hostname -f 2>/dev/null || hostname 2>/dev/null || echo "")
+	case "$fqdn" in
+	*.nvidia.com) return 0 ;;
+	esac
+	if [ -f "${HOME}/.config/dotfiles/company/nvidia" ]; then
+		return 0
+	fi
+	return 1
+}
+
+if _should_load_nvidia_company_profile; then
+	if [ -f "${_company_profile_root}/nvidia/vault" ]; then
+		# shellcheck source=/dev/null
+		source "${_company_profile_root}/nvidia/vault"
+	fi
+fi
+
+unset -f _should_load_nvidia_company_profile
+unset _company_profile_root

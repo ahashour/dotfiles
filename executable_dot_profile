@@ -15,6 +15,7 @@ source ~/.profile.d/ripgrep
 
 source ~/.profile.d/fasd
 source ~/.profile.d/github
+source ~/.profile.d/company_loader
 
 source ~/.profile.d/python
 source ~/.profile.d/ruby

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# HashiCorp Vault (NVIDIA internal). Sourced only on NVIDIA corporate hosts;
+# see ~/.profile.d/company_loader.
+
+export VAULT_ADDR=https://prod.internal.vault.nvidia.com
+export VAULT_NAMESPACE=dgxc-mars-cat
