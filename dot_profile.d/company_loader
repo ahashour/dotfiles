@@ -1,11 +1,30 @@
 #!/bin/bash
 
 # Optional company-specific ~/.profile.d/company/<name>/ snippets.
-# NVIDIA: loaded when the host FQDN looks corporate (*.nvidia.com) or when
-# you create an empty marker file:
-#   mkdir -p ~/.config/dotfiles/company && touch ~/.config/dotfiles/company/nvidia
+# NVIDIA: loaded when any of these match:
+#   - FQDN from hostname ends with .nvidia.com (domain-joined style)
+#   - Resolver search / nameserver config mentions nvidia.com (common when
+#     hostname -f is only an asset tag, e.g. DC9F9TW59T on macOS)
+#   - Explicit opt-in: mkdir -p ~/.config/dotfiles/company
+#     && touch ~/.config/dotfiles/company/nvidia
 
 _company_profile_root="${HOME}/.profile.d/company"
+
+_nvidia_dns_config_looks_corporate() {
+	# macOS: system resolver state (search domains, etc.)
+	if [ "$(uname -s)" = "Darwin" ]; then
+		if scutil --dns 2>/dev/null | grep -qiE 'nvidia\.com'; then
+			return 0
+		fi
+	fi
+	# Linux and others: search/domain lines from DHCP/VPN
+	if [ -r /etc/resolv.conf ]; then
+		if grep -qiE 'nvidia\.com' /etc/resolv.conf; then
+			return 0
+		fi
+	fi
+	return 1
+}
 
 _should_load_nvidia_company_profile() {
 	local fqdn
@@ -13,6 +32,9 @@ _should_load_nvidia_company_profile() {
 	case "$fqdn" in
 	*.nvidia.com) return 0 ;;
 	esac
+	if _nvidia_dns_config_looks_corporate; then
+		return 0
+	fi
 	if [ -f "${HOME}/.config/dotfiles/company/nvidia" ]; then
 		return 0
 	fi
@@ -26,5 +48,6 @@ if _should_load_nvidia_company_profile; then
 	fi
 fi
 
+unset -f _nvidia_dns_config_looks_corporate
 unset -f _should_load_nvidia_company_profile
 unset _company_profile_root
