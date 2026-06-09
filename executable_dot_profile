@@ -1,8 +1,9 @@
 #!/bin/bash
 
+source ~/.profile.d/arrayutil
+source ~/.profile.d/base_path
 source ~/.profile.d/hostname
 source ~/.profile.d/locale
-source ~/.profile.d/arrayutil
 source ~/.profile.d/home_path
 source ~/.profile.d/sbin_path
 source ~/.profile.d/homebrew
@@ -26,8 +27,14 @@ source ~/.profile.d/node
 
 source ~/.profile.d/netlify
 
-# - Each shell profile (e.g., .bash_profile) sources .profile
-# - Each shell rc (e.g., .bashrc) sources .profile if _PROFILE_LOADED is not
-#   set
+# Guard against re-sourcing within the SAME shell process: a login shell runs
+# .profile (via .zprofile/.bash_profile), then the matching rc (.zshrc/.bashrc)
+# sees this set and skips re-running it.
+#
+# Do NOT export this. Exporting leaks it into child/sibling shells and into the
+# tmux server's global environment, which then makes those shells skip .profile
+# even when they inherited a broken/minimal PATH (e.g. non-login shells where
+# /etc/zprofile's path_helper never ran). That is the classic "command not
+# found: grep/vault/chezmoi" failure. Kept unexported, any shell that did not
+# itself run .profile will rebuild PATH from scratch.
 _PROFILE_LOADED=$(date +%s)
-export _PROFILE_LOADED

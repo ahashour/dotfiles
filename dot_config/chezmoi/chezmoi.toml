@@ -1,3 +1,7 @@
+# Source-of-truth dotfiles repo. This must be a top-level key (above any
+# [section] header). After changing this, run `chezmoi diff` to preview what
+# would deploy from the new source into your home directory.
+sourceDir = "/Users/aashour/repos/external/dotfiles"
 
 [git]
     autoCommit = true

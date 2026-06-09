@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Guarantee the standard system bin directories are always on PATH, even when
+# the shell starts with a stripped or empty inherited PATH (e.g. zsh launched
+# without /etc/zprofile running path_helper, or shells spawned by GUI apps).
+# Without this, core tools like grep/sed/awk/hostname in /usr/bin may not be
+# found. Must be sourced before any fragment that calls an external command.
+# shellcheck disable=2086
+add_base_paths() {
+	local IFS=:
+
+	PATH=$(append /usr/local/bin $PATH)
+	PATH=$(append /usr/bin $PATH)
+	PATH=$(append /bin $PATH)
+
+	export PATH
+}
+
+add_base_paths

@@ -1,14 +1,20 @@
-autoload -Uz compinit && compinit
-bindkey -e
-
 # Make sure that .profile has been loaded, even if there was no "login shell"
-# in our lineage.
-if [ -z "$_PROFILE_LOADED" ]; then
+# in our lineage. Done FIRST so PATH is sane before compinit and the rc.d
+# fragments below run external tools.
+# Load the full profile if it has not run in THIS process, OR if PATH is
+# actually broken. The second check defends against a parent (e.g. Cursor /
+# VS Code) injecting a cached, stripped environment that still carries an
+# inherited _PROFILE_LOADED -- a stale flag claiming the profile ran when PATH
+# was never built. /usr/bin is the sentinel for a sane PATH.
+if [ -z "$_PROFILE_LOADED" ] || [[ ":$PATH:" != *":/usr/bin:"* ]]; then
     source ~/.profile
 else
     # Always want arrayutil
     source ~/.profile.d/arrayutil
 fi
+
+autoload -Uz compinit && compinit
+bindkey -e
 
 source ~/.zsh/rc.d/options
 source ~/.zsh/rc.d/prompt

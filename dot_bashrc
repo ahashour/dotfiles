@@ -1,8 +1,11 @@
 #!/bin/bash
 
 # Make sure that .profile has been loaded, even if there was no "login shell"
-# in our lineage.
-if [ -z "$_PROFILE_LOADED" ]; then
+# in our lineage. Also reload if PATH is actually broken: a parent (e.g. Cursor
+# / VS Code) can inject a cached, stripped environment that still carries an
+# inherited _PROFILE_LOADED -- a stale flag claiming the profile ran when PATH
+# was never built. /usr/bin is the sentinel for a sane PATH.
+if [ -z "$_PROFILE_LOADED" ] || [[ ":$PATH:" != *":/usr/bin:"* ]]; then
 	source ~/.profile
 else
 	# Always want arrayutil
