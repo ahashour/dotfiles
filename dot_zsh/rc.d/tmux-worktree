@@ -1,0 +1,20 @@
+#!/bin/zsh
+
+# Publish the current git worktree name into a pane-scoped tmux user option
+# (@worktree) so tmux's pane-border-format can show it per pane. tmux only
+# evaluates #(shell) once globally, so we push the value from the shell
+# instead: each pane's shell sets its own option, giving correct per-pane
+# titles. No-op outside tmux (e.g. inside an sbx container, where the tmux
+# socket isn't reachable -- the outer pane already holds the value).
+_tmux_set_worktree() {
+    [ -n "$TMUX" ] || return
+    local top name
+    top=$(git rev-parse --show-toplevel 2>/dev/null)
+    name=${top:t}                 # :t = basename (the worktree dir name)
+    [ -n "$name" ] || name=${PWD:t}
+    tmux set-option -p @worktree "$name" 2>/dev/null
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd _tmux_set_worktree
+_tmux_set_worktree                # seed it for the shell's starting directory

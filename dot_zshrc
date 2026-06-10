@@ -28,6 +28,7 @@ source ~/.zsh/rc.d/autosuggestions
 source ~/.zsh/rc.d/netlify
 source ~/.zsh/rc.d/history
 source ~/.zsh/rc.d/highlighting
+source ~/.zsh/rc.d/tmux-worktree
 
 source ~/.aliases
 
