@@ -21,3 +21,6 @@
     enabled = true
 [log]
     decorate = true
+# Per-machine identity (user.name / user.email) lives outside the repo.
+[include]
+    path = ~/.gitconfig.local
