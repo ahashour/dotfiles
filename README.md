@@ -105,7 +105,7 @@ Do these **once** after `chezmoi apply` (or `install.sh`) on a new machine:
 - **Save/quit:** `<leader>w` write, `<leader>q` quit.
 - **Config:** `<leader>\` vsplit config, `<leader>-` split config, `<leader>sv` source config.
 - **Spell:** `<leader>ss` spell on, `<leader>ns` spell off.
-- **NERDTree:** `<leader>t` focus.
+- **Neo-tree:** `<leader>t` toggle file explorer (reveals current file).
 - **Telescope:** `<leader>tf` find files, `<leader>tg` live grep, `<leader>th` help tags, `<leader>tb` git branches, `<leader>tr` resume.
 - **LSP:** `gd` go to definition, `K` hover, `grr` rename, `grf` references.
 - **Git (fugitive):** `<leader>ggu` stage, `<leader>gga` amend, `<leader>ggc` commit, `<leader>ggrc` rebase continue, `<leader>ad` diff (arc), `<leader>ud` diff undo.

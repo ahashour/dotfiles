@@ -24,7 +24,6 @@ local personal_group = Augroup:new("personal")
 
 -- config options settings
 require("config.misc")
-require("config.nerdtree")
 require("config.colorscheme")
 require("config.netrw")
 require("config.go")
@@ -33,7 +32,7 @@ require("config.wildignore")
 -- setup
 require('lualine').setup()
 require('go').setup()
-require('nerdtree').setup()
+require('config.neotree').setup()
 require('commentary').setup()
 
 -- Neovide settings

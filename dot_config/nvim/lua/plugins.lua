@@ -16,7 +16,15 @@ local use_lsp_installer = not (vim.lsp and vim.lsp.config and vim.lsp.enable)
 
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
-  use 'scrooloose/nerdtree'
+  use {
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons',
+      'MunifTanjim/nui.nvim',
+    }
+  }
   use 'ojroques/vim-oscyank'
   if use_lsp_installer then
     use 'williamboman/nvim-lsp-installer'
