@@ -71,6 +71,30 @@ Do these **once** after `chezmoi apply` (or `install.sh`) on a new machine:
 - **Port forward:** `port_forward <port> <host>`; `devpod_port_forward <port>` (uses `$DEVPOD`).
 - **Bazel (optional):** `bbt`, `gbt`, `gpr`, `flaky` (see [Optional / situational](#optional--situational)).
 
+### Remote (OmniStation): links and OAuth callbacks
+
+Browser-based logins (vault, `oci session authenticate`, MCP OAuth) run a
+listener on the *remote* box, but the browser runs on the laptop, so the
+redirect to `localhost:<port>` must be tunnelled back:
+
+- **Links:** `~/.local/bin/xdg-open` (deployed on non-macOS only) prints the URL
+  as an OSC 8 hyperlink and copies it via OSC 52. Cmd-click it in iTerm2.
+- **Callbacks:** add fixed-port forwards to the laptop's `~/.ssh/config`
+  (not tracked here; it holds host-specific proxy/cert paths):
+
+  ```
+  Host omnistation
+      LocalForward 8350 localhost:8350   # vault-login alias (callbackport=8350)
+      LocalForward 8181 localhost:8181   # oci session authenticate
+  ```
+
+  Ports must be free on the laptop. Cursor squats on 8250, hence the 8350 alias.
+  MCP OAuth uses a random port; paste the failed `localhost:...` redirect URL
+  back into the prompt instead.
+- **Claude Code + iTerm2:** the `cc-status` hook is a macOS binary, so it works
+  for Claude on the laptop (including inside local tmux, via `allow-passthrough`),
+  not for Claude running on OmniStation.
+
 ### Bash-only (in `~/.bash_profile`)
 
 - **History:** `HISTSIZE`/`HISTFILESIZE` 100k; `hsync()` to append and reload history.

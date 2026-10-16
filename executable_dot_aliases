@@ -66,3 +66,9 @@ alias glp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset 
 alias devpod_port_forward='f(){ ssh -N -L "$1":localhost:"$1" "$DEVPOD"; }; f'
 alias port_forward='f(){ ssh -N -L "$1":localhost:"$1" "$2"; }; f'
 alias flaky='f(){ echo --- RUN flaky test ---; bazel test --runs_per_test=300 --cache_test_results=no --test_env=GO_TEST_WRAP_TESTV=1 --@io_bazel_rules_go//go/config:race ...; }; f'
+
+# Vault OIDC login. Uses port 8350 for the browser-callback listener because
+# Cursor's extension host squats on the default 8250 (bind: address already in use).
+# Over SSH (OmniStation) the browser callback only lands if the ssh session
+# forwards this port: see the LocalForward lines in the README.
+alias vault-login='vault login -method=oidc -path=oidc role=secrets-operator port=8350 callbackport=8350'

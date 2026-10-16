@@ -13,6 +13,7 @@ source ~/.profile.d/editor
 source ~/.profile.d/man
 source ~/.profile.d/dircolors
 source ~/.profile.d/ripgrep
+source ~/.profile.d/gpg
 
 source ~/.profile.d/fasd
 source ~/.profile.d/github

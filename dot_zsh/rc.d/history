@@ -22,6 +22,9 @@ bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
+# Application cursor-key mode (DECCKM) variants: zsh's line editor puts many
+# terminals (e.g. tmux-256color) into this mode, where Up/Down send \eOA/\eOB
+# instead of \e[A/\e[B. Bind both forms so history search works everywhere.
 bindkey '\eOA' history-substring-search-up
-bindkey '\eOA' history-substring-search-down
+bindkey '\eOB' history-substring-search-down
 

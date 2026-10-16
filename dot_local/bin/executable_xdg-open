@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# Headless stand-in for xdg-open (OmniStation, devpods). CLIs that "open the
+# browser" (vault login, oci session authenticate, mcp/oauth flows) call
+# xdg-open, which on a headless box either fails or does nothing. Instead, put
+# the URL where the *local* terminal can use it:
+#   - OSC 8 hyperlink: Cmd-click in iTerm2 opens the whole URL, even when it
+#     wraps over several lines (plain-text URLs break on wrap inside tmux).
+#   - OSC 52: copies the URL to the local clipboard (tmux set-clipboard on).
+# The OAuth redirect then needs the callback port forwarded back over SSH;
+# see the LocalForward lines in the README.
+
+url=$1
+[ -n "$url" ] || exit 1
+
+# Write to the terminal, not stdout: callers often capture or discard stdout.
+out=/dev/stderr
+# -w isn't enough: /dev/tty exists but can't be opened without a controlling tty.
+if (: >/dev/tty) 2>/dev/null; then
+	out=/dev/tty
+fi
+
+b64=$(printf '%s' "$url" | base64 | tr -d '\n')
+{
+	printf '\n\033]52;c;%s\033\\' "$b64"
+	printf 'Open in your local browser (Cmd-click; also copied to clipboard):\n'
+	printf '\033]8;;%s\033\\%s\033]8;;\033\\\n\n' "$url" "$url"
+} >"$out" 2>/dev/null
+
+exit 0

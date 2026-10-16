@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Point GPG's pinentry at the controlling terminal. Required whenever a
+# passphrase prompt happens in the terminal: gpg commit signing, and
+# git-credential-manager (GCM) when it uses a gpg/pass credential store --
+# otherwise git aborts with "fatal: GPG_TTY is not set" (seen on OmniStation).
+# Guarded to interactive ttys so non-interactive shells (scp, cron, CI) don't
+# get a bogus "not a tty" value.
+if tty -s 2>/dev/null; then
+	GPG_TTY=$(tty)
+	export GPG_TTY
+fi
